@@ -1,0 +1,624 @@
+openapi: 3.0.0
+info:
+  title: License API
+  description: API pour la gestion des licences
+  version: "1.0.0"
+servers:
+  - url: 'À modifier !'
+tags:
+  - name: site
+    description: Pyhisical site
+  - name: provider
+    description: Provider of the product
+  - name: product
+    description: Type of license
+  - name: license
+    description: license object
+
+paths:
+  /site:
+    patch:
+      tags:
+        - site
+      summary: Update an existing site
+      description: Update an existing site by Id
+      operationId: updatesite
+      requestBody:
+        description: Update an existent site in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Site'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Site not found
+        '422':
+          description: Validation exception
+    post:
+      tags:
+        - site
+      summary: Add a new site to the list
+      description: Add a new site to the list
+      operationId: addSite
+      requestBody:
+        description: Create a new site in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Site'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '400':
+          description: Invalid ID supplied
+        '422':
+          description: Validation exception
+
+  /site/{siteId}:
+    get:
+      tags:
+        - site
+      summary: Find site by ID
+      description: Returns a single site
+      operationId: getSiteById
+      parameters:
+        - name: siteId
+          in: path
+          description: ID of site to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Site not found
+    delete:
+      tags:
+        - site
+      summary: Deletes a site
+      description: Deletes a site
+      operationId: deleteSite
+      parameters:
+        - name: siteId
+          in: path
+          description: Site id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid site value
+
+  /site/findByName:
+    get:
+      tags:
+        - site
+      summary: Find site by name
+      description: Provide the name of the site you want to get
+      operationId: findSiteByName
+      parameters:
+        - name: name
+          in: query
+          description: Name value that need to be considered for filter
+          required: true
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Site'
+        '400':
+          description: Invalid name value
+
+  /provider:
+    patch:
+      tags:
+        - provider
+      summary: Update an existing provider
+      description: Update an existing provider by Id
+      operationId: updateProvider
+      requestBody:
+        description: Update an existent provider in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Provider'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Site not found
+        '422':
+          description: Validation exception
+    post:
+      tags:
+        - provider
+      summary: Add a new provider to the list
+      description: Add a new provider to the list
+      operationId: addProvider
+      requestBody:
+        description: Create a new provider in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Provider'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+        '400':
+          description: Invalid ID supplied
+        '422':
+          description: Validation exception
+
+  /provider/{providerId}:
+    get:
+      tags:
+        - provider
+      summary: Find provider by ID
+      description: Returns a single provider
+      operationId: getProviderById
+      parameters:
+        - name: providerId
+          in: path
+          description: ID of provider to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Provider not found
+    delete:
+      tags:
+        - provider
+      summary: Deletes a provider by Id
+      description: Deletes a provider by Id
+      operationId: deleteProvider
+      parameters:
+        - name: providerId
+          in: path
+          description: Provider id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid provider value
+
+  /provider/findByName:
+    get:
+      tags:
+        - provider
+      summary: Find provider by name
+      description: Provide the name of the provider you want to get
+      operationId: findProviderByName
+      parameters:
+        - name: name
+          in: query
+          description: Name value that need to be considered for filter
+          required: true
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Provider'
+        '400':
+          description: Invalid name value
+
+  /product:
+    patch:
+      tags:
+        - product
+      summary: Update an existing product
+      description: Update an existing product by Id
+      operationId: updateProduct
+      requestBody:
+        description: Update an existent product in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: product not found
+        '422':
+          description: Validation exception
+    post:
+      tags:
+        - product
+      summary: Add a new product to the list
+      description: Add a new product to the list
+      operationId: addProduct
+      requestBody:
+        description: Create a new product in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Invalid ID supplied
+        '422':
+          description: Validation exception
+
+  /product/{productId}:
+    get:
+      tags:
+        - product
+      summary: Finds product by Id
+      description: Product search using an Id
+      operationId: findProductById
+      parameters:
+        - name: productId
+          in: path
+          description: Status value that need to be considered for filter
+          required: true
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Invalid status value
+    delete:
+     tags:
+       - product
+     summary: Deletes a product by Id
+     description: delete a product by Id
+     operationId: deleteProduct
+     parameters:
+       - name: productId
+         in: path
+         description: product id to delete
+         required: true
+         schema:
+           type: integer
+           format: int64
+     responses:
+       '400':
+         description: Invalid address value
+
+  /product/findByName:
+    get:
+      tags:
+        - product
+      summary: Finds product by name
+      description: Product search using a name
+      operationId: findProductByName
+      parameters:
+        - name: name
+          in: query
+          description: Status value that need to be considered for filter
+          required: true
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Product'
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/Product'
+        '400':
+          description: Invalid status value
+
+  /license:
+    patch:
+      tags:
+        - license
+      summary: Update an existing license
+      description: Update an existing license by Id
+      operationId: updateLicense
+      requestBody:
+        description: Update an existent license in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/License'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/License'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: license not found
+        '422':
+          description: Validation exception
+    post:
+      tags:
+        - license
+      summary: Add a new license to the list
+      description: Add a new license to the list
+      operationId: addLicense
+      requestBody:
+        description: Create a new license in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/License'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/License'
+        '400':
+          description: Invalid ID supplied
+        '422':
+          description: Validation exception
+
+  /license/{licenseId}:
+    get:
+      tags:
+        - license
+      summary: Finds license by Id
+      description: License search using an Id
+      operationId: findLicenseById
+      parameters:
+        - name: licenseId
+          in: path
+          description: Status value that need to be considered for filter
+          required: true
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/License'
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/License'
+        '400':
+          description: Invalid status value
+    delete:
+      tags:
+        - license
+      summary: Deletes an license
+      description: delete an license
+      operationId: deletelicense
+      parameters:
+        - name: licenseId
+          in: path
+          description: license id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid address value
+
+  /license/findByKey:
+    get:
+      tags:
+        - license
+      summary: Finds license by key
+      description: License search using a key
+      operationId: findlicenseByKey
+      parameters:
+        - name: key
+          in: query
+          description: Status value that need to be considered for filter
+          required: true
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/License'
+        '400':
+          description: Invalid status value
+
+  /license/findByIsUsed:
+    get:
+      tags:
+        - license
+      summary: Finds used licenses
+      description: License search if licenses are used
+      operationId: findlicenseByIsUsed
+      parameters:
+        - name: isUsed
+          in: query
+          description: Status value that need to be considered for filter
+          required: true
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/License'
+        '400':
+          description: Invalid status value
+
+  /license/findByIdUser:
+    get:
+      tags:
+        - license
+      summary: Finds license by Id of a user
+      description: License search using the Id of a user
+      operationId: findLicenseByIdUser
+      parameters:
+        - name: idUser
+          in: query
+          description: Status value that need to be considered for filter
+          required: true
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/License'
+        '400':
+          description: Invalid status value
+
+components:
+  schemas:
+    Site:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 99
+        name:
+          type: string
+          description: Site name
+          example: Saint-Malo
+    Provider:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 99
+        name:
+          type: string
+          description: name of the company's license's provider
+          example: Microsoft
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 99
+        name:
+          type: string
+          description: name of a product
+          example: Windows
+        nb_licenses:
+          type: integer
+          description: number of license's products
+        nb_used_licenses:
+          type: integer
+          description: number of used license's products
+    License:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 99
+        key:
+          type: string
+          description: object key
+        date_start:
+          type: string
+          format: date
+          description: product start date
+        date_expiration:
+          type: string
+          format: date
+          description: product expiration date
+        is_used:
+          type: boolean
+          description: true or false if the licence is used
+        id_users:
+          type: integer
+          format: int64
+          description: id used as foreign key to link with an users table
