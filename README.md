@@ -1,5 +1,5 @@
 # api_licence
-_gestion des licences en lien avec des sites physiques par des DSI locaux ou bien le Super Admin_
+_Gestion des licences en lien avec des sites physiques par des DSI locaux ou bien le Super Admin_
 ## Données exploités
 - Site | _ex : Saint Malo_
 - Editeur | _ex : Microsoft_
