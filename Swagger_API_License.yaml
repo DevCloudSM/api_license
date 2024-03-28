@@ -17,32 +17,21 @@ tags:
 
 paths:
   /site:
-    patch:
+    get:
       tags:
         - site
-      summary: Update an existing site
-      description: Update an existing site by Id
-      operationId: updatesite
-      requestBody:
-        description: Update an existent site in the list
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Site'
-        required: true
+      summary: List all sites
+      description: List all sites
+      operationId: getSites
       responses:
         '200':
-          description: Successful operation
+          description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Site'
-        '400':
-          description: Invalid ID supplied
         '404':
-          description: Site not found
-        '422':
-          description: Validation exception
+          description: Sites not found
     post:
       tags:
         - site
@@ -94,11 +83,37 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Site not found
+    patch:
+      tags:
+        - site
+      summary: Update an existing site
+      description: Update an existing site by Id
+      operationId: updateSite
+      requestBody:
+        description: Update an existent site in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Site'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Site not found
+        '422':
+          description: Validation exception
     delete:
       tags:
         - site
-      summary: Deletes a site
-      description: Deletes a site
+      summary: Delete a site
+      description: Delete a site
       operationId: deleteSite
       parameters:
         - name: siteId
@@ -140,32 +155,21 @@ paths:
           description: Invalid name value
 
   /provider:
-    patch:
+    get:
       tags:
         - provider
-      summary: Update an existing provider
-      description: Update an existing provider by Id
-      operationId: updateProvider
-      requestBody:
-        description: Update an existent provider in the list
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Provider'
-        required: true
+      summary: List all providers
+      description: List all providers
+      operationId: getProviders
       responses:
         '200':
-          description: Successful operation
+          description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Provider'
-        '400':
-          description: Invalid ID supplied
         '404':
-          description: Site not found
-        '422':
-          description: Validation exception
+          description: Providers not found
     post:
       tags:
         - provider
@@ -217,11 +221,37 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Provider not found
+    patch:
+      tags:
+        - provider
+      summary: Update an existing provider
+      description: Update an existing provider by Id
+      operationId: updateProvider
+      requestBody:
+        description: Update an existent provider in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Provider'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Site not found
+        '422':
+          description: Validation exception
     delete:
       tags:
         - provider
-      summary: Deletes a provider by Id
-      description: Deletes a provider by Id
+      summary: Delete a provider by Id
+      description: Delete a provider by Id
       operationId: deleteProvider
       parameters:
         - name: providerId
@@ -263,32 +293,21 @@ paths:
           description: Invalid name value
 
   /product:
-    patch:
+    get:
       tags:
         - product
-      summary: Update an existing product
-      description: Update an existing product by Id
-      operationId: updateProduct
-      requestBody:
-        description: Update an existent product in the list
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Product'
-        required: true
+      summary: List all products
+      description: List all products
+      operationId: getProducts
       responses:
         '200':
-          description: Successful operation
+          description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
-        '400':
-          description: Invalid ID supplied
         '404':
-          description: product not found
-        '422':
-          description: Validation exception
+          description: Products not found
     post:
       tags:
         - product
@@ -318,7 +337,7 @@ paths:
     get:
       tags:
         - product
-      summary: Finds product by Id
+      summary: Find product by Id
       description: Product search using an Id
       operationId: findProductById
       parameters:
@@ -338,10 +357,36 @@ paths:
                 $ref: '#/components/schemas/Product'
         '400':
           description: Invalid status value
+    patch:
+      tags:
+        - product
+      summary: Update an existing product
+      description: Update an existing product by Id
+      operationId: updateProduct
+      requestBody:
+        description: Update an existent product in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: product not found
+        '422':
+          description: Validation exception
     delete:
      tags:
        - product
-     summary: Deletes a product by Id
+     summary: Delete a product by Id
      description: delete a product by Id
      operationId: deleteProduct
      parameters:
@@ -360,7 +405,7 @@ paths:
     get:
       tags:
         - product
-      summary: Finds product by name
+      summary: Find product by name
       description: Product search using a name
       operationId: findProductByName
       parameters:
@@ -385,32 +430,21 @@ paths:
           description: Invalid status value
 
   /license:
-    patch:
+    get:
       tags:
         - license
-      summary: Update an existing license
-      description: Update an existing license by Id
-      operationId: updateLicense
-      requestBody:
-        description: Update an existent license in the list
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/License'
-        required: true
+      summary: List all the licenses
+      description: List all licenses
+      operationId: getLicenses
       responses:
         '200':
-          description: Successful operation
+          description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/License'
-        '400':
-          description: Invalid ID supplied
         '404':
-          description: license not found
-        '422':
-          description: Validation exception
+          description: Licenses not found
     post:
       tags:
         - license
@@ -440,7 +474,7 @@ paths:
     get:
       tags:
         - license
-      summary: Finds license by Id
+      summary: Find license by Id
       description: License search using an Id
       operationId: findLicenseById
       parameters:
@@ -463,10 +497,36 @@ paths:
                   $ref: '#/components/schemas/License'
         '400':
           description: Invalid status value
+    patch:
+      tags:
+        - license
+      summary: Update an existing license
+      description: Update an existing license by Id
+      operationId: updateLicense
+      requestBody:
+        description: Update an existent license in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/License'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/License'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: license not found
+        '422':
+          description: Validation exception
     delete:
       tags:
         - license
-      summary: Deletes an license
+      summary: Delete an license
       description: delete an license
       operationId: deletelicense
       parameters:
@@ -485,7 +545,7 @@ paths:
     get:
       tags:
         - license
-      summary: Finds license by key
+      summary: Find license by key
       description: License search using a key
       operationId: findlicenseByKey
       parameters:
@@ -510,7 +570,7 @@ paths:
     get:
       tags:
         - license
-      summary: Finds used licenses
+      summary: Find used licenses
       description: License search if licenses are used
       operationId: findlicenseByIsUsed
       parameters:
@@ -535,7 +595,7 @@ paths:
     get:
       tags:
         - license
-      summary: Finds license by Id of a user
+      summary: Find license by Id of a user
       description: License search using the Id of a user
       operationId: findLicenseByIdUser
       parameters:

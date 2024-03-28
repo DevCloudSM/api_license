@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>API Licenses</title>
+</head>
+<body>
+    <h1>API Licenses</h1>
+    <h2>Routes utilisant la méthode GET :</h2>
+    <br>
+    <h3>site</h3>
+    <ul>
+        <li><a href={{ url_for('site') }}>/site</a></li>
+        <li><p>/site/<i>{siteId}</i></p></li>
+        <li><p>/site/findByName?name=<i>site_name</i></p></li>
+    </ul>
+    <br>
+    <h3>provider</h3>
+    <ul>
+        <li><a href={{ url_for('provider') }}>/provider</a></li>
+        <li><p>/provider/<i>{providerId}</i></p></li>
+        <li><p>/provider/findByName?name=<i>provider_name</i></p></li>
+    </ul>
+    <br>
+    <h3>product</h3>
+    <ul>
+        <li><a href={{ url_for('product') }}>/product</a></li>
+        <li><p>/product/<i>{productId}</i></p></li>
+        <li><p>/product/findByName?name=<i>product_name</i></p></li>
+    </ul>
+    <br>
+    <h3>license</h3>
+    <ul>
+        <li><a href={{ url_for('license') }}>/license</a></li>
+        <li><p>/license/<i>{licenseId}</i></p></li>
+        <li><p>/license/findByKey?key=<i>license_key</i></p></li>
+        <li><p>/license/findByIsUsed?boolean=<i>True</i></p></li>
+        <li><p>/license/findByIdUser?id_user=<i>id_user</i></p></li>
+    </ul>
+</body>
+</html>
