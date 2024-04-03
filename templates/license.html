@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Formulaire Licence</title>
+</head>
+<body>
+<h2>Formulaire d'ajout de Licence</h2>
+<form action="/submit_license" method="post">
+  <label for="key">Clé de licence:</label><br>
+  <input type="text" id="key" name="key" maxlength="35"><br>
+  
+  <label for="date_start">Date de début:</label><br>
+  <input type="date" id="date_start" name="date_start"><br>
+  
+  <label for="date_expiration">Date d'expiration:</label><br>
+  <input type="date" id="date_expiration" name="date_expiration"><br>
+  
+  <label for="is_used">Est utilisée:</label><br>
+  <input type="checkbox" id="is_used" name="is_used"><br>
+  
+  <label for="user_id">ID de l'utilisateur:</label><br>
+  <input type="number" id="user_id" name="user_id"><br>
+  
+  <label for="product_id">ID du produit:</label><br>
+  <input type="number" id="product_id" name="product_id"><br>
+  
+  <input type="submit" value="Soumettre">
+</form>
+</body>
+</html>
