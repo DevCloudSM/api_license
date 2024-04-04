@@ -1,13 +1,11 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Response
 import json
 import requests
-import python_sql_licenses as ps
+import python_sql as ps
 
 app = Flask(__name__)
 
-
-# with open("data/dico_sites.json", "r", encoding="utf-8") as fichier_json:
-#    dico_sites = json.load(fichier_json)
+nom_db = 'licenses'
 
 
 @app.route('/', endpoint='page_accueil')
@@ -26,19 +24,19 @@ def index():
 
 @app.route('/site', methods=['GET', 'POST'])
 def site():
-    if request.method == 'POST':                        # Si la méthode est POST
-        site = request.get_json()                       # On récupère les données au format JSON fournit dans la requête
-        test = ps.post("site", site)              # On effectue une requête POST grâce à notre module ps
-        return f"Succès de l'opération : {test}"        # On retourne le résultat de l'opération, qui est un booléen
-    elif request.method == 'GET':                       # Si la méthode est GET
-        result = ps.get(["site"])                       # On effectue une requête GET grâce à notre module ps
-        return jsonify(result)                          # On retourne les données demandées
+    if request.method == 'POST':
+        test = ps.post(f'{nom_db}', 'site', {'name': request.get_json()})
+        return f"Succès de l'opération : {test}"
+    elif request.method == 'GET':
+        result = ps.get(f'{nom_db}', ['site'])
+        return jsonify(result)
 
 
 @app.route('/site/<id>', methods=['GET', 'PATCH', 'DELETE'])
-def findSiteById(id):
+def findSiteById(id: str) -> Response | str:
     if request.method == 'GET':  # si la méthode est GET
-        return "Succès de la méthode GET !"
+        result = ps.get(f'{nom_db}', ["site"], "id", id)  # On effectue une requête GET grâce à notre module ps
+        return jsonify(result)  # On retourne les données demandées
     elif request.method == 'PATCH':  # si la méthode est PATCH
         return "Succès de la méthode PATCH !"
     elif request.method == 'DELETE':  # si la méthode est DELETE
@@ -50,19 +48,19 @@ def findSiteById(id):
 
 @app.route('/provider', methods=['GET', 'POST'])
 def provider():
-    if request.method == 'POST':                        # Si la méthode est POST
-        provider = request.get_json()                   # On récupère les données au format JSON fournit dans la requête
-        test = ps.post("provider", provider)      # On effectue une requête POST grâce à notre module ps
-        return f"Succès de l'opération : {test}"        # On retourne le résultat de l'opération, qui est un booléen
-    elif request.method == 'GET':                       # Si la méthode est GET
-        result = ps.get(["provider"])                   # On effectue une requête GET grâce à notre module ps
-        return jsonify(result)                          # On retourne les données demandées
+    if request.method == 'POST':
+        test = ps.post(f'{nom_db}', 'provider', {'name': request.get_json()})
+        return f"Succès de l'opération : {test}"
+    elif request.method == 'GET':
+        result = ps.get(f'{nom_db}', ['provider'])
+        return jsonify(result)
 
 
 @app.route('/provider/<id>', methods=['GET', 'PATCH', 'DELETE'])
 def findProviderById(id):
     if request.method == 'GET':  # si la méthode est GET
-        return "Succès de la méthode GET !"
+        result = ps.get(f'{nom_db}', ["provider"], "id", id)  # On effectue une requête GET grâce à notre module ps
+        return jsonify(result)  # On retourne les données demandées
     elif request.method == 'PATCH':  # si la méthode est PATCH
         return "Succès de la méthode PATCH !"
     elif request.method == 'DELETE':  # si la méthode est DELETE
@@ -79,19 +77,20 @@ def findProviderByName():
 
 @app.route('/product', methods=['GET', 'POST'])
 def product():
-    if request.method == 'POST':                        # Si la méthode est POST
-        product = request.get_json()                    # On récupère les données au format JSON fournit dans la requête
-        test = ps.post("product", product)        # On effectue une requête POST grâce à notre module ps
-        return f"Succès de l'opération : {test}"        # On retourne le résultat de l'opération, qui est un booléen
-    elif request.method == 'GET':                       # Si la méthode est GET
-        result = ps.get(["product"])                    # On effectue une requête GET grâce à notre module ps
-        return jsonify(result)                          # On retourne les données demandées
+    if request.method == 'POST':
+        product_fields = request.get_json()
+        test = ps.post(f'{nom_db}', 'provider', {f"{product_fields.keys()}": val for val in product_fields.values()})
+        return f"Succès de l'opération : {test}"
+    elif request.method == 'GET':
+        result = ps.get(f'{nom_db}', ['product'])
+        return jsonify(result)
 
 
 @app.route('/product/<id>', methods=['GET', 'PATCH', 'DELETE'])
 def findProductById(id):
     if request.method == 'GET':  # si la méthode est GET
-        return "Succès de la méthode GET !"
+        result = ps.get(f'{nom_db}', ["product"], "id", id)  # On effectue une requête GET grâce à notre module ps
+        return jsonify(result)  # On retourne les données demandées
     elif request.method == 'PATCH':  # si la méthode est PATCH
         return "Succès de la méthode PATCH !"
     elif request.method == 'DELETE':  # si la méthode est DELETE
@@ -120,7 +119,8 @@ def license():
 @app.route('/license/<id>', methods=['GET', 'PATCH', 'DELETE'])
 def findLicenseById(id):
     if request.method == 'GET':  # si la méthode est GET
-        return "Succès de la méthode GET !"
+        result = ps.get(f'{nom_db}', ["license"], "id", id)  # On effectue une requête GET grâce à notre module ps
+        return jsonify(result)  # On retourne les données demandées
     elif request.method == 'PATCH':  # si la méthode est PATCH
         return "Succès de la méthode PATCH !"
     elif request.method == 'DELETE':  # si la méthode est DELETE
