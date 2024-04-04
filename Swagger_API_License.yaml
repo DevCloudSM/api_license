@@ -2,9 +2,7 @@ openapi: 3.0.0
 info:
   title: License API
   description: API pour la gestion des licences
-  version: "1.0.0"
-servers:
-  - url: 'À modifier !'
+  version: "1.6.3"
 tags:
   - name: site
     description: Pyhisical site
@@ -87,6 +85,14 @@ paths:
       summary: Update an existing site
       description: Update an existing site by Id
       operationId: updateSite
+      parameters:
+        - name: siteId
+          in: path
+          description: ID of site to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         description: Update an existent site in the list
         content:
@@ -225,6 +231,14 @@ paths:
       summary: Update an existing provider
       description: Update an existing provider by Id
       operationId: updateProvider
+      parameters:
+        - name: providerId
+          in: path
+          description: ID of provider to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         description: Update an existent provider in the list
         content:
@@ -365,6 +379,14 @@ paths:
       summary: Update an existing product
       description: Update an existing product by Id
       operationId: updateProduct
+      parameters:
+        - name: productId
+          in: path
+          description: Status value that need to be considered for filter
+          required: true
+          explode: false
+          schema:
+            type: string
       requestBody:
         description: Update an existent product in the list
         content:
@@ -509,6 +531,14 @@ paths:
       summary: Update an existing license
       description: Update an existing license by Id
       operationId: updateLicense
+      parameters:
+        - name: licenseId
+          in: path
+          description: Status value that need to be considered for filter
+          required: true
+          explode: false
+          schema:
+            type: string
       requestBody:
         description: Update an existent license in the list
         content:
