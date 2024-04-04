@@ -1,0 +1,198 @@
+{% macro tree(sites, providers) %}
+    <div>
+        {% for site in sites %}
+            <a href="/licence?site={{ site.id }}">
+                <h4>{{ site.name }}</h4> 
+            </a>
+            <a href='/edit/site?id={{site.id}}'>
+                <i class="fa-solid fa-pen"></i>
+            </a> <br>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro table(sites, providers, products, licences) %}
+<div class="offcanvas offcanvas-start" id="demo">
+    <div class="offcanvas-header">
+            <h1 class="offcanvas-title">Add an object</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+            <a href="/new/site/" class="btn btn-secondary" type="button">Site</a>
+            <a href="/new/provider/" class="btn btn-secondary" type="button">Provider</a>
+            <a href="/new/product/" class="btn btn-secondary" type="button">Product</a>
+            <a href="/new/licence/" class="btn btn-secondary" type="button">Licence</a>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <td>
+                <button class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </thead>
+        <tbody>
+            {% for provider in providers %}
+                <tr>                    
+                    <td>{{provider.id}}</td>
+                    <td>
+                        <a href="/licence?provider={{ provider.id }}">
+                            {{provider.name}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href='/edit/provider?id={{provider.id}}'>
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href='/delete/provider?id={{provider.id}}'>
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table class="table">
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    {% for data in product.values() %}
+                        <td>{{data}}</td>
+                    {% endfor %}
+                    <td>
+                        <a href='/edit/product?id={{product.id}}'>
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href='/delete/product?id={{product.id}}'>
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table class="table">
+        <tbody>
+            {% for licence in licences %}
+                <tr>
+                    {% for data in subnet.values() %}
+                        <td>{{data}}</td>
+                    {% endfor %}
+                    <td>
+                        <a href='/edit/licence?id={{licence.id}}'>
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href='/delete/licence?id={{licence.id}}'>
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endmacro %}
+
+{% macro form_site(sites, has_id, site="") %}
+    <form action="/action_form/site/{{ site.id if site else 0 }}" method="post">
+        <label class="form-label">Site ID</label>
+        <input class="form-control" type="text" name="id" id="id" value="{{ site.id if site else "" }}" {{ 'disabled' if has_id else '' }}> <br>
+        
+        <label class="form-label">Site Name</label>
+        <input class="form-control" type="text" name="name" id="name" value="{{ site.name if site else "" }}"> <br>
+        
+        <button class="btn btn-primary" type="submit" value="Edit Site">Submit</button>
+    </form>
+{% endmacro %}
+
+{% macro form_provider(providers, has_id, provider="") %}
+    <form action="/action_form/provider/{{ provider.id if provider else 0 }}" method="post">
+        <label class="form-label">Provider ID</label>
+        <input class="form-control" type="text" name="id" id="id" value="{{ provider.id if provider else "" }}" {{ 'disabled' if has_id else '' }}> <br>
+        
+        <label class="form-label">Provider Name</label>
+        <input class="form-control" type="text" name="name" id="name" value="{{ provider.name if provider else "" }}"> <br>
+        
+        <button class="btn btn-primary" type="submit" value="Edit Provider">Submit</button>
+    </form>
+{% endmacro %}
+
+{% macro form_product(products, has_id, product="") %}
+    <form action="/action_form/product/{{ product.id if product else 0 }}" method="post">
+        <label class="form-label">Product ID</label>
+        <input class="form-control" type="text" name="id" id="id" value="{{ product.id if product else "" }}" {{ 'disabled' if has_id else '' }}> <br>
+        
+        <label class="form-label">Product Name</label>
+        <input class="form-control" type="text" name="name" id="name" value="{{ product.name if product else "" }}"> <br>
+        
+        <label class="form-label">Number of Licenses</label>
+        <input class="form-control" type="text" name="nb_licenses" id="nb_licenses" value="{{ product.nb_licenses if product else "" }}"> <br>
+        
+        <label class="form-label">Number of Used Licenses</label>
+        <input class="form-control" type="text" name="nb_used_licenses" id="nb_used_licenses" value="{{ product.nb_used_licenses if product else "" }}"> <br>
+        
+        <label class="form-label">Provider</label>
+        <select class="form-select" name="provider_id" id="provider_id">
+            {% for provider in providers %}
+                <option value="{{ provider.id }}">{{ provider.name }}</option>
+            {% endfor %}
+        </select> <br>
+        
+        <label class="form-label">Site ID</label>
+        <select class="form-select" name="site_id" id="site_id">
+            {% for site in sites %}
+                <option value="{{ site.id }}">{{ site.name }}</option>
+            {% endfor %}
+        </select> <br>
+        
+        <button class="btn btn-primary" type="submit" value="Edit Product">Submit</button>
+    </form>
+{% endmacro %}
+
+{% macro form_license(licenses, has_id, license="") %}
+    <form action="/action_form/license/{{ license.id if license else 0 }}" method="post">
+        <label class="form-label">License ID</label>
+        <input class="form-control" type="text" name="id" id="id" value="{{ license.id if license else "" }}" {{ 'disabled' if has_id else '' }}> <br>
+        
+        <label class="form-label">License Key</label>
+        <input class="form-control" type="text" name="key" id="key" value="{{ license.key if license else "" }}"> <br>
+        
+        <label class="form-label">Start Date</label>
+        <input class="form-control" type="date" name="date_start" id="date_start" value="{{ license.date_start if license else "" }}"> <br>
+        
+        <label class="form-label">Expiration Date</label>
+        <input class="form-control" type="date" name="date_expiration" id="date_expiration" value="{{ license.date_expiration if license else "" }}"> <br>
+        
+        <label class="form-label">Is Used</label>
+        <select class="form-select" name="is_used" id="is_used">
+            <option value="true" {% if license and license.is_used %} selected {% endif %}>Yes</option>
+            <option value="false" {% if license and not license.is_used %} selected {% endif %}>No</option>
+        </select> <br>
+        
+        <label class="form-label">User ID</label>
+        <input class="form-control" type="text" name="user_id" id="user_id" value="{{ license.user_id if license else "" }}"> <br>
+        
+        <label class="form-label">Product ID</label>
+        <select class="form-select" name="product_id" id="product_id">
+            {% for product in products %}
+                <option value="{{ product.id }}">{{ product.name }}</option>
+            {% endfor %}
+        </select> <br>
+        
+        <button class="btn btn-primary" type="submit" value="Edit License">Submit</button>
+    </form>
+{% endmacro %}

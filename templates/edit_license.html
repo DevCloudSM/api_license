@@ -1,0 +1,15 @@
+{% import 'macros.j2' as macros %}
+{% import 'front_licence.j2' as macros_license %}
+<!DOCTYPE html>
+<html lang="fr">
+    {{ macros.head("IPAM - Modifier une licence", "Page d'accueil") }} <!-- 1er arg : Nom de l'onglet | 2eme arg : meta de la page-->
+    <body>
+        {{ macros.body("IPAM" , "1.0.0", navbar) }} <!-- 1er arg : Nom en haut de la navbar | 2eme arg : Version de l'API | 3eme arg : Liste de dictionnaires -->
+        <div class="col-12 px-5 py-4 bg-white text-dark"> 
+            <!-- Formulaire pour la modification de licence -->
+            {{ macros_license.form_license(licenses, True, license) }}
+        </div><!-- NE PAS SUPPRIMER -->
+        </div><!-- NE PAS SUPPRIMER -->
+        {{ macros.footer({"email": "test@test.com", "phone": "+33 47 89 57 78", "address": "bla"}) }}
+    </body>
+</html>
