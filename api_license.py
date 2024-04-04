@@ -161,6 +161,9 @@ def menu():
     contenu_licence = [{key:value for key,value in zip(cles_licence, cont)} for cont in contenu_licence]
     return render_template('licence.html', tree=groupes, groupes=contenu_groupe, subnets=contenu_subnet)
 
+
+# --------------------------- Edit Object -----------------------------
+
 @app.route('/edit/site', methods = ['GET'])
 def edit_site():
     cles_site = ['id','name']
@@ -203,6 +206,9 @@ def edit_licence():
     sites = [{key:value for key,value in zip(cles_site, site)} for site in sites]
     return render_template('edit_licence.html', licence=licence, sites=sites)
 
+
+# --------------------------- New Object -----------------------------
+
 @app.route('/new/site/', methods = ['GET'])
 def new_site():
     cles_site = ['id','name']
@@ -230,6 +236,9 @@ def new_licence():
     licences = ps.get('licence',['site'])
     licences = [{key:value for key,value in zip(cles_licence, licence)} for licence in licences]
     return render_template('new_provider.html', licences=licences)
+
+
+# --------------------------- Edit Database Object -----------------------------
 
 @app.route('/action_form/site/<int:id>', methods = ['POST'])
 def action_form_site(id:int):
@@ -286,6 +295,8 @@ def action_form_license(id: int):
     ps.put('licence','licence', arguments)
     return redirect('/licence')
 
+
+# --------------------------- Delete Object -----------------------------
 
 @app.route('/delete/site')
 def delete_site():
