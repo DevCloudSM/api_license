@@ -1,0 +1,23 @@
+{% import 'macros.j2' as macros %}
+{% import 'front_ipam.j2' as macros_ipam %}
+<!DOCTYPE html>
+<html lang="fr">
+        {{macros.head("VOTRE_SERVICE", "Page d'accueil")}} <!-- 1er arg : Nom de l'onglet | 2eme arg : meta de la page-->
+    <body>
+        {{macros.body("VOTRE_SERVICE" , "1.0.0", navbar)}} <!-- 1er arg : Nom en haut de la navbar | 2eme arg : Version de l'API | 3eme arg : Liste de dictionnaires -->
+        <div class="col-12 px-5 py-4 bg-white text-dark"> 
+            
+            <div class="row bg-success">
+                <div class="col-sm-2 bg-warning">
+                    {{macros_ipam.tree(sites)}}
+                </div>
+                <div class="col-sm-10 bg-secondary">
+                    {{macros_ipam.table(groupes, subnets)}}
+                </div>
+            </div>
+
+            </div><!-- NE PAS SUPPRIMER -->
+        </div><!-- NE PAS SUPPRIMER -->
+        {{macros.footer({"email": "test@test.com", "phone": "+33 47 89 57 78", "address": "bla"})}}
+    </body>
+</html>
