@@ -52,8 +52,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Site'
-        '400':
-          description: Invalid ID supplied
         '422':
           description: Validation exception
 
@@ -124,8 +122,12 @@ paths:
             type: integer
             format: int64
       responses:
+        '200':
+          description: Successful operation
         '400':
-          description: Invalid site value
+          description: Invalid ID supplied
+        '404':
+          description: Site not found
 
   /site/findByName:
     get:
@@ -186,10 +188,6 @@ paths:
       responses:
         '200':
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Provider'
         '400':
           description: Invalid ID supplied
         '422':
@@ -262,8 +260,12 @@ paths:
             type: integer
             format: int64
       responses:
+        '200':
+          description: Successful operation
         '400':
-          description: Invalid provider value
+          description: Invalid ID supplied
+        '404':
+          description: Site not found
 
   /provider/findByName:
     get:
@@ -398,8 +400,12 @@ paths:
            type: integer
            format: int64
      responses:
-       '400':
-         description: Invalid address value
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Site not found
 
   /product/findByName:
     get:
@@ -538,8 +544,12 @@ paths:
             type: integer
             format: int64
       responses:
+        '200':
+          description: Successful operation
         '400':
-          description: Invalid address value
+          description: Invalid ID supplied
+        '404':
+          description: Site not found
 
   /license/findByKey:
     get:
